@@ -1,0 +1,34 @@
+
+    <>
+      <section className="backdrop">
+        <form onSubmit={(event) => {event.preventDefault(); sendQuery()}} className="backdrop__search">
+          <input type="text" value={value} onChange={(event) => setValue(event.target.value)} className="backdrop__search--input" />
+        </form>
+        {
+          loading ? null : 
+          <figure className="backdrop__figure">
+            <img src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`} alt={data.title} className="backdrop__figure--image" />
+          </figure>
+        }
+      </section>
+      {
+        loading ? null :
+        <main className="main">
+        <section className="details">
+          <figure className="details__poster">
+            <img src={`https://image.tmdb.org/t/p/original${data.poster_path}`} alt={data.title} className="details__poster--image" />
+          </figure>
+          <div className="details__wrapper">
+            <article className="details__heading">
+              <h2 className="details__heading--title">{data.title}</h2>
+              <p className="details__heading--year">{data.release_date.slice(0, 4)}</p>
+            </article>
+            <article className="details__text">
+              <p className="details__text--tagline">{data.tagline}</p>
+              <p className="details__text--overview">{data.overview}</p>
+            </article>
+          </div>
+        </section>
+      </main>
+      }
+    </>

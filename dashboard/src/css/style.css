@@ -1,0 +1,47 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+  background: rgb(12, 22, 31);
+  color: rgb(255, 255, 255);
+  font-family: "Lato";
+  font-size: 2rem;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 15rem;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.header__search {
+  border: none;
+  background: rgba(126, 167, 180, 0.4);
+  font-size: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 0.4rem;
+}
+.header__search:focus {
+  outline: none;
+}
+
+.header {
+  background: red;
+}
+
+/*# sourceMappingURL=style.css.map */

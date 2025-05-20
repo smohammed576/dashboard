@@ -1,0 +1,17 @@
+@use "variables";
+@use "mixins";
+
+body{
+    min-height: 100vh;
+    background: map-get(variables.$baseVars, "background");
+    color: map-get(variables.$baseVars, "color");
+    font-family: map-get(variables.$baseVars, "font");
+    font-size: 2rem;
+}
+
+.main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 15rem;
+}

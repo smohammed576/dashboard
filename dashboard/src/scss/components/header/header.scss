@@ -1,0 +1,19 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.header{
+    @include mixins.flexBox;
+    padding: 1rem;
+
+    &__search{
+        border: none;
+        background: rgba(map-get(variables.$baseVars, "accent"), 0.4);
+        font-size: 100%;
+        padding: 0.6rem 1rem;
+        border-radius: 0.4rem;
+
+        &:focus{
+            outline: none;
+        }
+    }
+}

@@ -27,8 +27,6 @@ function App(){
     setLoading(false);
   }
 
-  console.log(results)
-
   return(
     <>
       <header className="header">
@@ -77,7 +75,7 @@ function App(){
                   {
                     director == '' ?  
                     <span className="result__heading--created">
-                      <h3 className="result__heading--created-text">Created by </h3>
+                      <h3 className="result__heading--created-text">Created by</h3>
                       {
                         data.created_by.map((item, index) => 
                           <h3 className="result__heading--created-item" key={index}>{item.name}{index + 1 == data.created_by.length ? null : ','}</h3>
@@ -114,7 +112,7 @@ function App(){
         </main>
       }
     </>
-  )
+  );
 }
 
 export default App;

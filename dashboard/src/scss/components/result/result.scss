@@ -1,0 +1,203 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+@use "../../abstracts/animations";
+
+.result{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 100%;
+
+    &__figure{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+        height: 100%;
+
+        &--image{
+            width: 22rem;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0);
+            border-radius: 0.2rem;
+
+            &-loading{
+                width: 22rem;
+                height: 35rem;
+                border-radius: 0.2rem;
+                background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                position: relative;
+                overflow: hidden;
+
+                &::after{
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    box-shadow: -2rem 0 1rem 0rem rgba(map-get(variables.$baseVars, "red"), 0.4);
+                    width: 1rem;
+                    @include animations.loading;
+                }
+            }
+        }
+        &--rating{
+            @include mixins.flexBox;
+            gap: 1rem;
+            font-size: 80%;
+            width: 100%;
+
+            &-star{
+                font-size: 90%;
+            }
+
+            &-loading{
+                width: 80%;
+                background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                border-radius: 0.2rem;
+                height: 2rem;
+                position: relative;
+                overflow: hidden;
+
+                &::after{
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    box-shadow: -2rem 0 1rem 0rem rgba(map-get(variables.$baseVars, "red"), 0.4);
+                    width: 1rem;
+                    @include animations.loading;
+                }
+            }
+        }
+    }
+
+    &__wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 1rem;
+        padding: 2rem 1rem;
+    }
+
+    &__heading{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 0.4rem;
+
+        &--title{
+            font-family: map-get(variables.$fontVars, "accent");
+            font-weight: 800;
+            font-size: 150%;
+
+            &-loading{
+                background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                width: 30rem;
+                padding: 1rem;
+                border-radius: 0.2rem;
+                position: relative;
+                overflow: hidden;
+
+                &::after{
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    box-shadow: -2rem 0 1rem 0rem rgba(map-get(variables.$baseVars, "red"), 0.4);
+                    width: 1rem;
+                    @include animations.loading;
+                }
+            }
+        }
+        &--directed{
+            font-size: 100%;
+            font-weight: 600;
+            
+            &-loading{
+                background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                width: 25rem;
+                height: 2rem;
+                border-radius: 0.2rem;
+                position: relative;
+                overflow: hidden;
+
+                &::after{
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    box-shadow: -2rem 0 1rem 0rem rgba(map-get(variables.$baseVars, "red"), 0.4);
+                    width: 1rem;
+                    @include animations.loading;
+                }
+            }
+        }
+    }
+
+    &__text{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        width: 40rem;
+
+        &--tagline{
+            text-transform: uppercase;
+            
+            &-loading{
+                background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                width: 32rem;
+                height: 2rem;
+                border-radius: 0.2rem;
+                margin-top: 1rem;
+                position: relative;
+                overflow: hidden;
+
+                &::after{
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    box-shadow: -2rem 0 1rem 0rem rgba(map-get(variables.$baseVars, "red"), 0.4);
+                    width: 1rem;
+                    @include animations.loading;
+                }
+            }
+        }
+
+        &--wrapper{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            
+            &-loading{
+                background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                width: 30rem;
+                height: 2rem;
+                border-radius: 0.2rem;
+                position: relative;
+                overflow: hidden;
+
+                &::after{
+                    content: "";
+                    height: 100%;
+                    position: absolute;
+                    box-shadow: -2rem 0 1rem 0 rgba(map-get(variables.$baseVars, "red"), 0.4);
+                    width: 1rem;
+                    @include animations.loading;
+                }
+
+                &:nth-of-type(2){
+                    width: 25rem;
+                }
+                &:nth-of-type(6){
+                    width: 25rem;
+                }
+            }
+        }
+    }
+}

@@ -3,17 +3,90 @@
 
 .header{
     @include mixins.flexBox;
-    padding: 1rem;
+    padding: 1.12rem;
+    position: relative;
 
     &__search{
         border: none;
-        background: rgba(map-get(variables.$baseVars, "accent"), 0.4);
         font-size: 100%;
-        padding: 0.6rem 1rem;
-        border-radius: 0.4rem;
+        @include mixins.flexBox;
+        
+        &--input{
+            width: 100%;
+            border: none;
+            font-size: 110%;
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+            color: map-get(variables.$baseVars, "color");
 
-        &:focus{
-            outline: none;
+            &:focus{
+                outline: none;
+                background: map-get(variables.$baseVars, "color");
+                color: map-get(variables.$baseVars, "background");
+            }
+        }
+    }
+
+    &__results{
+        background: map-get(variables.$baseVars, "color");
+        position: absolute;
+        top: 5rem;
+        list-style: none;
+        left: 41%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        z-index: 100;
+        width: 28rem;
+        max-height: 25rem;
+        overflow: hidden;
+        overflow-y: unset;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+
+        &--item{
+            @include mixins.flexBox;
+            width: 100%;
+            
+            &-button{
+                background: none;
+                border: none;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: start;
+                align-items: start;
+                gap: 1rem;
+                font-size: 90%;
+                padding: 1rem;
+                text-align: start;
+                
+                &:focus{
+                    outline: none;
+                }
+
+                &:hover{
+                    cursor: pointer;
+                    background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                }
+            }
+
+            &-image{
+                height: 6rem;
+                min-width: 4.5rem;
+                max-width: 4.5rem;
+                object-fit: cover;
+                filter: brightness(0);
+                border-radius: 0.1rem;
+            }
+
+            &-wrapper{
+                padding: 1rem 0;
+            }
         }
     }
 }

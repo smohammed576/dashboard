@@ -1,0 +1,14 @@
+@keyframes loading{
+    from{
+        margin-left: 0%;
+    }
+    to{
+        margin-left: 120%;
+    }
+}
+
+@mixin loading{
+    animation-name: loading;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}

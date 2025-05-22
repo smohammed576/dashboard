@@ -10,8 +10,9 @@ body{
 }
 
 .main{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include mixins.flexBox;
+    flex-direction: column;
+    gap: 2rem;
     padding: 1rem 15rem;
+    @include mixins.screenHeight;
 }

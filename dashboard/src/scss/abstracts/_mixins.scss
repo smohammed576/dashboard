@@ -1,3 +1,5 @@
+@use "variables";
+
 @mixin flexBox{
     display: flex;
     justify-content: center;
@@ -6,4 +8,12 @@
 
 @mixin screenHeight{
     height: calc(100vh - 6rem);
+}
+
+@mixin afterAnimation{
+    content: "";
+    height: 100%;
+    position: absolute;
+    box-shadow: -2rem 0 1rem 0 rgba(map-get(variables.$baseVars, "red"), 0.4);
+    width: 1rem;
 }

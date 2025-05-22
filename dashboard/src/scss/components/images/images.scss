@@ -31,11 +31,7 @@
             overflow: hidden;
 
             &::after{
-                content: "";
-                height: 100%;
-                position: absolute;
-                box-shadow: -2rem 0 1rem 0rem rgba(map-get(variables.$baseVars, "red"), 0.4);
-                width: 1rem;
+                @include mixins.afterAnimation;
                 @include animations.loading;
             }
         }

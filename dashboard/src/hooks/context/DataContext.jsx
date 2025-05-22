@@ -8,15 +8,14 @@ const DataProvider = ({children}) => {
     const url = import.meta.env.VITE_IMAGEURL;
 
     const searchQuery = async (query) => {
-        console.log(query)
-        const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${key}`)
+        const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${key}`);
         const data = await response.json();
         setData(data);
         return data;
     }
     
-    const fetchResult = async (id) => {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${key}&append_to_response=credits,images`);
+    const fetchResult = async (id, type) => {
+        const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${key}&append_to_response=credits,images`);
         const data = await response.json();
         return data;
     }

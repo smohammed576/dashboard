@@ -13,17 +13,21 @@ function App(){
 
   const sendQuery = async () => {
     const response = await searchQuery(value);
-    setResults(response.results);
+    setResults(response.results.filter((item) => item.media_type !== "person"));
     setSearch(true);
   }
-  const getResult = async (id) => {
-    const response = await fetchResult(id);
+  const getResult = async (id, type) => {
+    const response = await fetchResult(id, type);
     setData(response);
     setSearch(false);
-    setDirector(response.credits.crew.find((item) => item.job === "Director"))
+    if(type === "movie"){
+      setDirector(response.credits.crew.find((item) => item.job === "Director"))
+    }
     setValue('');
     setLoading(false);
   }
+
+  console.log(results)
 
   return(
     <>
@@ -37,10 +41,10 @@ function App(){
             {
               results.map((item, index) => 
                 <li className="header__results--item" key={index}>
-                  <button onClick={() => getResult(item.id)} className="header__results--item-button">
-                    <img src={`${url}${item.poster_path}`} alt={item.title} className="header__results--item-image" />
+                  <button onClick={() => getResult(item.id, item.media_type)} className="header__results--item-button">
+                    <img src={`${url}${item.poster_path}`} alt={item.media_type === "movie" && item.title || item.media_type === "tv" && item.name} className="header__results--item-image" />
                     <article className="header__results--item-wrapper">
-                      <p className="header__results--item-title">{item.title}</p>
+                      <p className="header__results--item-title">{item.media_type === "movie" && item.title || item.media_type === "tv" && item.name}</p>
                     </article>
                   </button>
                 </li>
@@ -56,7 +60,7 @@ function App(){
           <span className="wrapper">
             <section className="result">
               <figure className="result__figure">
-                <img src={`${url}${data.poster_path}`} alt={data.title} className="result__figure--image" />
+                <img src={`${url}${data.poster_path}`} alt={data.title ? data.title : data.name} className="result__figure--image" />
                 <article className="result__figure--rating">
                   <span className="result__figure--rating-wrapper">
                     {
@@ -69,8 +73,18 @@ function App(){
               </figure>
               <div className="result__wrapper">
                 <article className="result__heading">
-                  <figure className="result__heading--title">{data.title}</figure>
-                  <figure className="result__heading--directed">Directed by {director.name}</figure>
+                  <h2 className="result__heading--title">{data.title ? data.title : data.name}</h2>
+                  {
+                    director == '' ?  
+                    <span className="result__heading--created">
+                      <h3 className="result__heading--created-text">Created by </h3>
+                      {
+                        data.created_by.map((item, index) => 
+                          <h3 className="result__heading--created-item" key={index}>{item.name}{index + 1 == data.created_by.length ? null : ','}</h3>
+                        )
+                      }
+                    </span> : <h3 className="result__heading--directed">Directed by {director.name}</h3>
+                  }
                 </article>
                 <article className="result__text">
                   <p className="result__text--tagline">{data.tagline}</p>
@@ -95,7 +109,7 @@ function App(){
             </section>
           </span>
           <section className="images">
-            {data.images.backdrops.map((item, index) => <img src={`${url}${item.file_path}`} alt={data.title} className="images__item" key={index} />)}
+            {data.images.backdrops.map((item, index) => <img src={`${url}${item.file_path}`} alt={data.title ? data.title : data.name} className="images__item" key={index} />)}
           </section>
         </main>
       }

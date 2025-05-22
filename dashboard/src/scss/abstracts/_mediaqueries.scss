@@ -1,0 +1,35 @@
+@use "mixins";
+@media screen and (max-width: 64rem){
+    .header{
+
+        &__results{
+            left: 37%;
+        }
+    }
+    .main{
+        padding: 0;
+        justify-content: start;
+    }
+    .wrapper{
+        flex-direction: column;
+        padding: 0;
+        height: auto;
+        gap: 2rem;
+    }
+    .result{
+        width: 100%;
+    }
+    .cast{
+        height: 50rem;
+        width: 100%;
+        @include mixins.flexBox;
+    }
+    .images{
+        height: auto;
+        padding: 1rem 20rem;
+
+        &__item{
+            height: 20rem;
+        }
+    }
+}

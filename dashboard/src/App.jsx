@@ -10,6 +10,7 @@ function App(){
   const [search, setSearch] = useState(false);
   const [results, setResults] = useState([]);
   const [director, setDirector] = useState('');
+  const [index, setIndex] = useState(0);
 
   const sendQuery = async () => {
     const response = await searchQuery(value);
@@ -24,6 +25,7 @@ function App(){
       setDirector(response.credits.crew.find((item) => item.job === "Director"))
     }
     setValue('');
+    setIndex(0);
     setLoading(false);
   }
 
@@ -31,7 +33,7 @@ function App(){
     <>
       <header className="header">
         <form onSubmit={(event) => {event.preventDefault(); sendQuery()}} className="header__search">
-          <input type="text" value={value} onChange={(event) => setValue(event.target.value)} className="header__search--input" />
+          <input type="text" value={value} onChange={(event) => setValue(event.target.value)} placeholder="Search a movie or show..." className="header__search--input" />
         </form>
         {
           search ?
@@ -40,7 +42,10 @@ function App(){
               results.map((item, index) => 
                 <li className="header__results--item" key={index}>
                   <button onClick={() => getResult(item.id, item.media_type)} className="header__results--item-button">
-                    <img src={`${url}${item.poster_path}`} alt={item.media_type === "movie" && item.title || item.media_type === "tv" && item.name} className="header__results--item-image" />
+                    {
+                      item.poster_path ? <img src={`${url}${item.poster_path}`} alt={item.media_type === "movie" && item.title || item.media_type === "tv" && item.name} className="header__results--item-image" />
+                      : <figure className="header__results--item-placeholder"></figure>
+                    }
                     <article className="header__results--item-wrapper">
                       <p className="header__results--item-title">{item.media_type === "movie" && item.title || item.media_type === "tv" && item.name}</p>
                     </article>
@@ -88,14 +93,45 @@ function App(){
                   <p className="result__text--tagline">{data.tagline}</p>
                   <p className="result__text--overview">{data.overview}</p>
                 </article>
+                {
+                  data.seasons ? 
+                    <span className="result__seasons">
+                        <div className="result__seasons--item" key={index}>
+                          <img src={`${url}${data.seasons[index].poster_path}`} alt={data.seasons[index].name} className="result__seasons--item-image" />
+                          <article className="result__seasons--item-wrapper">
+                            <p className="result__seasons--item-title">{data.seasons[index].name}</p>
+                            <p className="result__seasons--item-episodes">{data.seasons[index].episode_count} {data.seasons[index].episode_count == 1 ? 'episode' : 'episodes'}</p>
+                          </article>
+                          {
+                            index > 0 ? 
+                              <button onClick={() => setIndex(index - 1)} className="result__seasons--item-button result__seasons--item-left">
+                                <i className="fa-solid fa-chevron-left result__seasons--item-icon"/>
+                              </button> 
+                            : null
+                          }
+                          {
+                            data.seasons.length !== index + 1 ?
+                              <button onClick={() => setIndex(index + 1)} className="result__seasons--item-button result__seasons--item-right">
+                                <i className="fa-solid fa-chevron-right result__seasons--item-icon"/>
+                              </button>
+                            : null
+                          }
+                        </div>
+                    </span>
+                  : null
+                }
               </div>
             </section>
             <section className="cast">
+            <span className="cast__heading">Cast</span>
               <ul className="cast__list">
                 {
                   data.credits.cast.map((item, index) => 
                     <li className="cast__item" key={index}>
-                      <img src={`${url}${item.profile_path}`} alt={item.name} className="cast__item--image" />
+                      {
+                        item.profile_path ? <img src={`${url}${item.profile_path}`} alt={item.name} className="cast__item--image" /> 
+                        : <figure className="cast__item--placeholder"></figure>
+                      }
                       <article className="cast__item--wrapper">
                         <p className="cast__item--name">{data.credits.cast[index].name}</p>
                         <p className="cast__item--character">{data.credits.cast[index].character}</p>

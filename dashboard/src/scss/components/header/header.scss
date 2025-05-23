@@ -3,7 +3,7 @@
 
 .header{
     @include mixins.flexBox;
-    padding: 1.12rem;
+    padding: 1.24rem;
     position: relative;
 
     &__search{
@@ -14,11 +14,16 @@
         &--input{
             width: 100%;
             border: none;
-            font-size: 110%;
-            padding: 0.6rem 1rem;
+            font-size: 100%;
+            padding: 0.6rem 2rem;
             border-radius: 2rem;
             background: rgba(map-get(variables.$baseVars, "red"), 0.4);
-            color: map-get(variables.$baseVars, "color");
+            color: rgba(map-get(variables.$baseVars, "red"), 0.8);
+
+            &::placeholder{
+                color: rgba(map-get(variables.$baseVars, "red"), 0.4);
+                font-size: 100%;
+            }
 
             &:focus{
                 outline: none;
@@ -80,8 +85,15 @@
                 min-width: 4.5rem;
                 max-width: 4.5rem;
                 object-fit: cover;
-                filter: brightness(0);
                 border-radius: 0.1rem;
+            }
+
+            &-placeholder{
+                height: 6rem;
+                min-width: 4.5rem;
+                max-width: 4.5rem;
+                border-radius: 0.1rem;
+                background: map-get(variables.$baseVars, "red");
             }
 
             &-wrapper{

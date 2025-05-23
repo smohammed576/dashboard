@@ -7,20 +7,26 @@
     justify-content: start;
     align-items: center;
     gap: 1rem;
-    height: 30%;
+    height: 25%;
     width: 100%;
-    padding: 2rem 0;
+    padding: 1rem 0;
     overflow: hidden;
     overflow-x: unset;
 
     &::-webkit-scrollbar{
-        display: none;
+        background: rgba(map-get(variables.$baseVars, "red"), 0.4);
+        border-radius: 1rem;
+        height: 0.8rem;
+
+        &-thumb{
+            background: map-get(variables.$baseVars, "red");
+            border-radius: 1rem;
+        }
     }
     &__item{
         height: 100%;
         width: 100%;
         object-fit: cover;
-        filter: brightness(0);
 
         &--loading{
             background: rgba(map-get(variables.$baseVars, "red"), 0.4);

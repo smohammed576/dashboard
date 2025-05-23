@@ -30,7 +30,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.12rem;
+  padding: 1.24rem;
   position: relative;
 }
 .header__search {
@@ -43,11 +43,15 @@ body {
 .header__search--input {
   width: 100%;
   border: none;
-  font-size: 110%;
-  padding: 0.6rem 1rem;
+  font-size: 100%;
+  padding: 0.6rem 2rem;
   border-radius: 2rem;
   background: rgba(115, 83, 151, 0.4);
-  color: rgb(255, 255, 255);
+  color: rgba(115, 83, 151, 0.8);
+}
+.header__search--input::placeholder {
+  color: rgba(115, 83, 151, 0.4);
+  font-size: 100%;
 }
 .header__search--input:focus {
   outline: none;
@@ -104,8 +108,14 @@ body {
   min-width: 4.5rem;
   max-width: 4.5rem;
   object-fit: cover;
-  filter: brightness(0);
   border-radius: 0.1rem;
+}
+.header__results--item-placeholder {
+  height: 6rem;
+  min-width: 4.5rem;
+  max-width: 4.5rem;
+  border-radius: 0.1rem;
+  background: #735397;
 }
 .header__results--item-wrapper {
   padding: 1rem 0;
@@ -114,7 +124,7 @@ body {
 .wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   width: 100%;
   height: 65%;
 }
@@ -143,15 +153,15 @@ body {
   height: 100%;
 }
 .result__figure--image {
-  width: 22rem;
-  height: 100%;
+  width: 100%;
+  height: 80%;
   object-fit: cover;
-  filter: brightness(0);
   border-radius: 0.2rem;
+  border: 0.1rem solid rgba(115, 83, 151, 0.3);
 }
 .result__figure--image-loading {
   width: 22rem;
-  height: 35rem;
+  height: 32rem;
   border-radius: 0.2rem;
   background: rgba(115, 83, 151, 0.4);
   position: relative;
@@ -172,11 +182,13 @@ body {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  font-size: 80%;
+  font-size: 70%;
   width: 100%;
+  color: rgba(255, 255, 255, 0.8);
 }
 .result__figure--rating-star {
-  font-size: 90%;
+  font-size: 100%;
+  color: #735397;
 }
 .result__figure--rating-loading {
   width: 80%;
@@ -214,7 +226,7 @@ body {
 .result__heading--title {
   font-family: "Newsreader";
   font-weight: 800;
-  font-size: 150%;
+  font-size: 140%;
 }
 .result__heading--title-loading {
   background: rgba(115, 83, 151, 0.4);
@@ -261,6 +273,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.6rem;
+  font-size: 80%;
 }
 .result__text {
   display: flex;
@@ -268,6 +281,8 @@ body {
   justify-content: start;
   align-items: start;
   width: 40rem;
+  font-size: 90%;
+  color: rgba(255, 255, 255, 0.8);
 }
 .result__text--tagline {
   text-transform: uppercase;
@@ -324,10 +339,92 @@ body {
 .result__text--wrapper-loading:nth-of-type(6) {
   width: 25rem;
 }
+.result__seasons {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 6rem;
+  width: 65%;
+}
+.result__seasons--item {
+  border: 0.1rem solid rgba(115, 83, 151, 0.2);
+  background: rgba(115, 83, 151, 0.2);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.4rem;
+  position: relative;
+}
+.result__seasons--item-image {
+  height: 100%;
+  width: 3.5rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+.result__seasons--item-wrapper {
+  height: 100%;
+}
+.result__seasons--item-title {
+  font-size: 80%;
+  font-weight: 600;
+}
+.result__seasons--item-episodes {
+  font-size: 70%;
+  display: inline;
+  color: #735397;
+}
+.result__seasons--item-button {
+  color: rgb(255, 255, 255);
+  border: none;
+  aspect-ratio: 1/1;
+  position: absolute;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.result__seasons--item-icon {
+  font-size: 90%;
+  background: rgba(115, 83, 151, 0.7);
+  width: 2rem;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.result__seasons--item-left {
+  left: -1.5rem;
+}
+.result__seasons--item-right {
+  right: -1rem;
+}
 
 .cast {
-  width: 35rem;
-  height: 100%;
+  width: 30rem;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  background: rgba(115, 83, 151, 0.3);
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+}
+.cast__heading {
+  font-weight: 800;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  font-size: 110%;
+  font-family: "Newsreader";
 }
 .cast__list {
   height: 100%;
@@ -337,9 +434,13 @@ body {
   align-items: start;
   gap: 1rem;
   list-style: none;
-  padding: 2rem 0;
   overflow: hidden;
   overflow-y: unset;
+  background: rgba(115, 83, 151, 0.3);
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid rgba(115, 83, 151, 0.3);
 }
 .cast__list::-webkit-scrollbar {
   display: none;
@@ -351,14 +452,13 @@ body {
   gap: 1rem;
 }
 .cast__item--image {
-  width: 5rem;
+  width: 4.5rem;
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 0.2rem;
-  filter: brightness(0);
 }
 .cast__item--image-loading {
-  width: 5rem;
+  width: 4.5rem;
   aspect-ratio: 1/1;
   background: rgba(115, 83, 151, 0.4);
   border-radius: 0.2rem;
@@ -375,12 +475,18 @@ body {
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
+.cast__item--placeholder {
+  width: 4.5rem;
+  aspect-ratio: 1/1;
+  background: rgba(115, 83, 151, 0.4);
+  border-radius: 0.2rem;
+}
 .cast__item--wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  font-size: 90%;
+  font-size: 80%;
 }
 .cast__item--name-loading {
   background: rgba(115, 83, 151, 0.4);
@@ -402,6 +508,7 @@ body {
 }
 .cast__item--character {
   color: rgb(126, 167, 180);
+  font-size: 90%;
 }
 .cast__item--character-loading {
   background: rgba(115, 83, 151, 0.4);
@@ -428,20 +535,25 @@ body {
   justify-content: start;
   align-items: center;
   gap: 1rem;
-  height: 30%;
+  height: 25%;
   width: 100%;
-  padding: 2rem 0;
+  padding: 1rem 0;
   overflow: hidden;
   overflow-x: unset;
 }
 .images::-webkit-scrollbar {
-  display: none;
+  background: rgba(115, 83, 151, 0.4);
+  border-radius: 1rem;
+  height: 0.8rem;
+}
+.images::-webkit-scrollbar-thumb {
+  background: #735397;
+  border-radius: 1rem;
 }
 .images__item {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  filter: brightness(0);
 }
 .images__item--loading {
   background: rgba(115, 83, 151, 0.4);
@@ -469,26 +581,45 @@ body {
   .main {
     padding: 0;
     justify-content: start;
+    gap: 5rem;
+    padding-top: 2rem;
   }
   .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     padding: 0;
     height: auto;
-    gap: 2rem;
+    gap: 5rem;
   }
   .result {
     width: 100%;
+    height: auto;
+    gap: 1rem;
+  }
+  .result__figure {
+    height: auto;
+  }
+  .result__figure--image {
+    height: 40rem;
+  }
+  .result__wrapper {
+    height: 100%;
   }
   .cast {
-    height: 50rem;
-    width: 100%;
+    width: 70%;
+    height: 40rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .images {
     height: auto;
-    padding: 1rem 20rem;
+    width: 71rem;
+  }
+  .images::-webkit-scrollbar {
+    display: none;
   }
   .images__item {
     height: 20rem;

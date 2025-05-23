@@ -9,27 +9,49 @@
     .main{
         padding: 0;
         justify-content: start;
+        gap: 5rem;
+        padding-top: 2rem;
     }
     .wrapper{
+        @include mixins.flexBox;
         flex-direction: column;
         padding: 0;
         height: auto;
-        gap: 2rem;
+        gap: 5rem;
     }
     .result{
         width: 100%;
+        height: auto;
+        gap: 1rem;
+        &__figure{
+            height: auto;
+            &--image{
+                height: 40rem;
+            }
+        }
+
+        &__wrapper{
+            height: 100%;
+        }
     }
     .cast{
-        height: 50rem;
-        width: 100%;
+        width: 70%;
+        height: 40rem;
         @include mixins.flexBox;
     }
     .images{
         height: auto;
-        padding: 1rem 20rem;
+        // padding: 1rem 15rem;
+        width: 71rem;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
 
         &__item{
             height: 20rem;
         }
     }
 }
+
+// @media screen and 

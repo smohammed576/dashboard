@@ -108,7 +108,7 @@ function App(){
                       type === 'movie' && <p className="result__info--runtime">{data.runtime} min</p>
                     }
                     <span className="result__info--links">
-                      <a href={`https://www.imdb.com/title/${data.imdb_id}/?ref_=fn_all_ttl_1`} target="_blank" className="result__info--links-item">IMDB</a>
+                      <a href={`https://www.imdb.com/title/${data.external_ids.imdb_id}/?ref_=fn_all_ttl_1`} target="_blank" className="result__info--links-item">IMDB</a>
                       <a href={`https://www.themoviedb.org/${director == '' ? 'tv' : 'movie'}/${data.id}`} target="_blank" className="result__info--links-item">TMDB</a>
                     </span>
                   </span>

@@ -4,7 +4,11 @@
 .header{
     @include mixins.flexBox;
     padding: 1.24rem;
-    position: relative;
+
+    &__navigation{
+        @include mixins.flexBox;
+        position: relative;
+    }
 
     &__search{
         border: none;
@@ -36,15 +40,15 @@
     &__results{
         background: map-get(variables.$baseVars, "color");
         position: absolute;
-        top: 5rem;
+        top: 100%;
         list-style: none;
-        left: 41%;
         display: flex;
         flex-direction: column;
         justify-content: start;
         align-items: start;
         z-index: 100;
         width: 28rem;
+        width: 100%;
         max-height: 25rem;
         overflow: hidden;
         overflow-y: unset;
@@ -69,6 +73,7 @@
                 font-size: 90%;
                 padding: 1rem;
                 text-align: start;
+                font-family: inherit;
                 
                 &:focus{
                     outline: none;
@@ -88,16 +93,26 @@
                 border-radius: 0.1rem;
             }
 
+            &-wrapper{
+                display: flex;
+                flex-direction: column-reverse;
+                justify-content: start;
+                align-items: start;
+                gap: 0.4rem;
+            }
+
+            &-type{
+                font-size: 75%;
+                text-transform: uppercase;
+                color: map-get(variables.$baseVars, "red");
+            }
+
             &-placeholder{
                 height: 6rem;
                 min-width: 4.5rem;
                 max-width: 4.5rem;
                 border-radius: 0.1rem;
                 background: map-get(variables.$baseVars, "red");
-            }
-
-            &-wrapper{
-                padding: 1rem 0;
             }
         }
     }

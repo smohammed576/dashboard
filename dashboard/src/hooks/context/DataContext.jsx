@@ -10,13 +10,13 @@ const DataProvider = ({children}) => {
     const searchQuery = async (query) => {
         const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${key}`);
         const data = await response.json();
-        setData(data);
         return data;
     }
     
     const fetchResult = async (id, type) => {
-        const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${key}&append_to_response=credits,images`);
+        const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${key}&append_to_response=credits,images,external_ids`);
         const data = await response.json();
+        setData(data);
         console.log(data);
         return data;
     }

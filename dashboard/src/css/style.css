@@ -31,6 +31,11 @@ body {
   justify-content: center;
   align-items: center;
   padding: 1.24rem;
+}
+.header__navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 .header__search {
@@ -61,15 +66,15 @@ body {
 .header__results {
   background: rgb(255, 255, 255);
   position: absolute;
-  top: 5rem;
+  top: 100%;
   list-style: none;
-  left: 41%;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
   z-index: 100;
   width: 28rem;
+  width: 100%;
   max-height: 25rem;
   overflow: hidden;
   overflow-y: unset;
@@ -95,6 +100,7 @@ body {
   font-size: 90%;
   padding: 1rem;
   text-align: start;
+  font-family: inherit;
 }
 .header__results--item-button:focus {
   outline: none;
@@ -110,15 +116,24 @@ body {
   object-fit: cover;
   border-radius: 0.1rem;
 }
+.header__results--item-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: start;
+  align-items: start;
+  gap: 0.4rem;
+}
+.header__results--item-type {
+  font-size: 75%;
+  text-transform: uppercase;
+  color: #735397;
+}
 .header__results--item-placeholder {
   height: 6rem;
   min-width: 4.5rem;
   max-width: 4.5rem;
   border-radius: 0.1rem;
   background: #735397;
-}
-.header__results--item-wrapper {
-  padding: 1rem 0;
 }
 
 .wrapper {
@@ -281,7 +296,7 @@ body {
   justify-content: start;
   align-items: start;
   width: 40rem;
-  font-size: 90%;
+  font-size: 80%;
   color: rgba(255, 255, 255, 0.8);
 }
 .result__text--tagline {
@@ -404,6 +419,62 @@ body {
 .result__seasons--item-right {
   right: -1rem;
 }
+.result__info {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.result__info--wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.result__info--runtime {
+  font-size: 70%;
+  color: rgba(255, 255, 255, 0.4);
+}
+.result__info--links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+.result__info--links-item {
+  font-size: 65%;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  border: 0.1rem solid rgba(255, 255, 255, 0.4);
+  padding: 0.1rem 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+}
+.result__info--links-item:hover {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+.result__info--genres {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+.result__info--genres-item {
+  font-size: 65%;
+  color: #735397;
+  text-decoration: none;
+  border: 0.1rem solid rgba(115, 83, 151, 0.6);
+  padding: 0.1rem 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
 
 .cast {
   width: 30rem;
@@ -412,9 +483,8 @@ body {
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  gap: 1rem;
   background: rgba(115, 83, 151, 0.3);
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   border-radius: 1rem;
 }
 .cast__heading {
@@ -422,9 +492,28 @@ body {
   display: flex;
   justify-content: start;
   align-items: center;
-  width: 100%;
+  gap: 1rem;
+  background: rgba(115, 83, 151, 0.3);
+  padding: 0.4rem;
+  border-radius: 1rem 1rem 0 0;
+}
+.cast__heading--button {
   font-size: 110%;
   font-family: "Newsreader";
+  border: none;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.5);
+  background: none;
+  padding: 0.8rem 1.4rem;
+}
+.cast__heading--button-active {
+  background: rgba(115, 83, 151, 0.3);
+  border-radius: 0.4rem 0.4rem 0 0;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+}
+.cast__heading--button:hover {
+  cursor: pointer;
 }
 .cast__list {
   height: 100%;
@@ -438,9 +527,9 @@ body {
   overflow-y: unset;
   background: rgba(115, 83, 151, 0.3);
   width: 100%;
-  padding: 0.4rem;
+  padding: 0.4rem 1rem;
   border-radius: 0.4rem;
-  border: 0.1rem solid rgba(115, 83, 151, 0.3);
+  border-top-left-radius: 0;
 }
 .cast__list::-webkit-scrollbar {
   display: none;
@@ -530,6 +619,34 @@ body {
   animation-iteration-count: infinite;
 }
 
+.seasons__item {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+.seasons__item--image {
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+.seasons__item--wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+}
+.seasons__item--name {
+  font-weight: 600;
+  font-size: 85%;
+}
+.seasons__item--episodes {
+  font-size: 75%;
+  color: rgba(126, 167, 180, 0.9);
+}
+
 .images {
   display: flex;
   justify-content: start;
@@ -552,7 +669,6 @@ body {
 }
 .images__item {
   height: 100%;
-  width: 100%;
   object-fit: cover;
 }
 .images__item--loading {
@@ -575,9 +691,6 @@ body {
 }
 
 @media screen and (max-width: 64rem) {
-  .header__results {
-    left: 37%;
-  }
   .main {
     padding: 0;
     justify-content: start;

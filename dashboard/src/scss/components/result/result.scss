@@ -133,7 +133,7 @@
         justify-content: start;
         align-items: start;
         width: 40rem;
-        font-size: 90%;
+        font-size: 80%;
         color: rgba(map-get(variables.$baseVars, "color"), 0.8);
 
         &--tagline{
@@ -247,6 +247,54 @@
             }
             &-right{
                 right: -1rem;
+            }
+        }
+    }
+    &__info{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: start;
+        gap: 1rem;
+        &--wrapper{
+            @include mixins.flexBox;
+            gap: 1rem;
+        }
+        &--runtime{
+            font-size: 70%;
+            color: rgba(map-get(variables.$baseVars, "color"), 0.4);
+        }
+        &--links{
+            @include mixins.flexBox;
+            gap: 0.6rem;
+            &-item{
+                font-size: 65%;
+                color: rgba(map-get(variables.$baseVars, "color"), 0.4);
+                text-decoration: none;
+                border: 0.1rem solid rgba(map-get(variables.$baseVars, "color"), 0.4);
+                padding: 0.1rem 0.4rem;
+                @include mixins.flexBox;
+                transition: 0.2s all;
+
+                &:hover{
+                    cursor: pointer;
+                    color: rgba(map-get(variables.$baseVars, "color"), 0.8);
+                    border-color: rgba(map-get(variables.$baseVars, "color"), 0.8);
+                }
+            }
+        }
+        &--genres{
+            @include mixins.flexBox;
+            gap: 0.6rem;
+
+            &-item{
+                font-size: 65%;
+                color: rgba(map-get(variables.$baseVars, "red"), 1);
+                text-decoration: none;
+                border: 0.1rem solid rgba(map-get(variables.$baseVars, "red"), 0.6);
+                padding: 0.1rem 0.4rem;
+                @include mixins.flexBox;
+                text-transform: uppercase;
             }
         }
     }

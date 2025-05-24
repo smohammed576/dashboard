@@ -1,11 +1,11 @@
 @use "mixins";
 @media screen and (max-width: 64rem){
-    .header{
+    // .header{
 
-        &__results{
-            left: 37%;
-        }
-    }
+    //     &__results{
+    //         // left: 37%;
+    //     }
+    // }
     .main{
         padding: 0;
         justify-content: start;

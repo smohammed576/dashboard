@@ -1,12 +1,10 @@
 # General
 
-[Get All](#get-all)
-[Get Item](#get-item)
-[Update Item](#update-item)
-[New Item](#new-item)
-[Pagination](#pagination)
-
-## Standaard functies
+- [Get All](#get-all)
+- [Get Item](#get-item)
+- [Update Item](#update-item)
+- [New Item](#new-item)
+- [Pagination](#pagination)
 
 ## Get All
 
@@ -116,3 +114,92 @@ void callMoreWorkareas(){
   }
 }
 ```
+
+
+
+
+## Location Amount
+Wanneer de workarea lijst ingeladen is staat er onder de naam de workarea altijd ook hoeveel locaties er bij dat workarea horen.
+Om te voorkomen om voor elke workarea in de lijst een tweede request te sturen is er in de backend functie die bij elk workarea item het aantal locaties meegeeft.
+
+``` java
+dto.setLocations(
+    locationRepository.findByWorkAreaId(workArea.getId()).size()
+);
+```
+
+Als je een locatie verwijdert of toevoegt moet dit aantal ook veranderen. 
+Bij het verwijderen van een locatie, door op de verwijder knop te drukken bij het locatie item, wordt deze functie geroepen en wordt gelijk het nieuwe juiste aantal meegegeven om te veranderen in de lijst.
+
+``` dart
+workareaListBloc.add(WorkareaEvent.locationAmount(item.copyWith(locations: (item.locations ?? 0) - 1)));
+```
+
+Voor dat wordt opgeroepen wordt er wel eerst een call gemaakt naar de [Update Item](#update-item) functie van de ```locationBloc``` omdat hier eerst het ```workareaId``` verwijdert moet worden. Dit zorgt ervoor dat die locatie niet meer bij deze workarea hoort maar wel nog blijft bestaan.
+
+De reden dat dit niet met de [Update Item](#update-item) functie van workarea gebeurd is omdat dit eigenlijk geen deel is van de workarea model.
+
+``` dart
+on<_LocationAmount>((event, emit) {
+      state.maybeWhen(
+        loaded: (workareas, locations) {
+          final List<Workarea> list = workareaData.map((item){
+            return item.id == event.workarea.id ? event.workarea : item;
+          }).toList();
+          final data = workareas.copyWith(content: list) as ApiResponse<Workarea>;
+          emit(WorkareasLoaded(workareas: data));
+        },
+        orElse: (){}
+      );
+    });
+```
+
+
+## Workarea Geometry
+Workarea heeft een centerpoint en als de workarea wordt opgeroepen dan staat er op de frontend een kaart waar deze wordt laten zien.
+Bij het ophalen van een workarea wordt er ook een request gedaan naar de endpoint om ```workarea geometry``` op te zoeken en als deze bestaat ook op te halen. Als er een geometrie bestaat met in de ```workareaId``` het ```id``` van de gekozen workarea dan wordt deze opgehaalt en weer gegeven op de kaart die terug te vinden is op het scherm van workareas.
+Er kunnen nieuwe polygonen worden getekent door op de knop van ```Bewerk geometrie``` te drukken. Er verschijnt dan een dialog waar een kaart op te zien waar er nieuwe polygonen kunnen worden getekent door op de kaart te drukken en punten te zetten. Om de polygon op te slaan moet er eerst op het eerste punt gedrukt worden waardoor de polygon gesloten wordt en dan wordt er een knop blauw op de map.
+Als daarop gedrukt wordt dan wordt er een functie geroepen die de 
+
+## Locations In Geometry
+De data in de workarea geometrie zijn polygonen en deze worden getekent op de map. Als een workarea geen geometrie heeft dan zijn er op het scherm twee knoppen te zien, als de geometrie wel bestaat dan komt er een derde knop bij, deze heet ```Haal locaties op in geometrie```. Als hierop gedrukt wordt dan komt er een dialog tevoorschijn waar er gekozen kan worden welke ```locatie subtypes```, ```eigenschappen```, ```onderhoudsplichte``` deze locaties mogen hebben. Als er niets wordt gekozen dan wordt er gezocht naar de locaties met ```null``` als values.
+Dit wordt naar de endpoint gestuurd.
+
+``` dart
+${NetworkUtils.getBaseUrl()}/$endpoint/workareas/filter?organisationId=$organisationId&workAreaId=$workareaId&subtypes=${subtypes.join(",")}&properties=${properties.join(",")}&maintainers=${maintainers.join(",")}
+```
+
+Deze wordt naar de backend gestuurd waar het de volgende query uitvoert:
+
+``` java
+@Query(
+value = """
+        SELECT l.id
+        FROM locations l 
+        JOIN workarea_work_area_geometries geometry
+            ON ST_Contains(geometry.geometry, ST_SetSRID(l.latlng, 4326))
+        LEFT JOIN location_properties props ON props.location_id = l.id
+        WHERE l.organisation_id = :organisationId
+            AND geometry.workarea_id = :workAreaId
+            AND (:subtypes IS NULL OR l.sub_type IS NULL OR cardinality(:subtypes) = 0 OR l.sub_type = ANY(:subtypes))
+            AND (:properties IS NULL OR props.property_id IS NULL OR cardinality(:properties) = 0 OR props.property_id = ANY(:properties))
+            AND (:maintainers IS NULL OR l.maintainer IS NULL OR cardinality(:maintainers) = 0 OR l.maintainer = ANY(:maintainers))
+        """,
+nativeQuery = true
+)
+```
+
+Hier wordt er gezocht naar de locatie die aan de eisen voldoen. Door de ```ST_Contains()``` wordt er voor gezorgt dat de locaties in de gekozen geometrie zitten en dat er door die locaties gefiltered moet worden. Als dit is gebeurd dan worden deze locaties teruggestuurd en wordt er eerst gecontrolleerd of er wel locaties zijn. Als dat zo is dan gaan ze in een loop en worden de ```workareaId``` bij elke locatie veranderd naar het ```id``` van de workarea.
+
+``` java
+for(Location location : locations){
+    location.setWorkArea(workArea);
+}
+locationRepository.saveAll(locations);
+locations.forEach(l ->
+        result.add(locationMapper.toGetDto(l))
+);
+```
+
+Deze worden dan opgeslagen en in de frontend wordt dit opnieuw opgehaald om alle nieuwe locaties te kunnen zien op het scherm.
+
